@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	background-color: #000000;
+	color: rgba(255, 255, 255, 0.87);
+	display: flex;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+.container {
+	min-height: 100%;
+	width: 100%;
+}
+
+.container canvas {
+	height: 100%;
+}
