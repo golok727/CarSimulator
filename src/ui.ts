@@ -15,6 +15,10 @@ export class UI {
 	update() {
 		this.speed = Math.floor(Math.abs(this.car.getSpeed()) * 10);
 	}
+
+	setCar(car: Car) {
+		this.car = car;
+	}
 	private drawDriveMode(x: number, y: number, rad: number = 10) {
 		const ctx = this.ctx;
 		let text = "D";
@@ -55,7 +59,6 @@ export class UI {
 			cX + (cR + margin) * Math.cos(speedToAngle(this.speed, 65) - Math.PI / 2);
 		const y =
 			cY + (cR + margin) * Math.sin(speedToAngle(this.speed, 65) - Math.PI / 2);
-		console.log(x, y);
 		ctx.arc(x, y, 5, 0, Math.PI * 2);
 		ctx.stroke();
 		ctx.fill();
@@ -64,7 +67,7 @@ export class UI {
 	}
 	private drawSpeedoMeter() {
 		const ctx = this.ctx;
-		const text = `${this.speed} kmph`;
+		const text = `${this.speed} Km/h`;
 
 		const cX = ctx.canvas.width - 150;
 		const cY = ctx.canvas.height - 150;

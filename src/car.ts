@@ -26,11 +26,12 @@ export class Car {
 	private friction = 0.01;
 	private steeringSensitivity = 1.2;
 	private direction = 1;
+	private isActive: boolean = false;
 
-	constructor(x: number, y: number) {
+	constructor(x: number, y: number, isActive = false) {
 		this.x = x;
 		this.y = y;
-
+		this.isActive = isActive;
 		this.init();
 	}
 
@@ -127,8 +128,18 @@ export class Car {
 	isReversing() {
 		return this.direction === -1;
 	}
+	setActive(active: boolean) {
+		this.isActive = active;
+	}
+	disable() {
+		this.isActive = false;
+	}
+	enable() {
+		this.isActive = true;
+	}
 	private init() {
 		document.addEventListener("keydown", (ev) => {
+			if (!this.isActive) return;
 			const key = ev.key;
 
 			if (key === "ArrowUp") {
@@ -144,6 +155,8 @@ export class Car {
 			}
 		});
 		document.addEventListener("keyup", (ev) => {
+			if (!this.isActive) return;
+
 			const key = ev.key;
 			if (key === "ArrowUp") {
 				this.controls.UP_ARROW = false;

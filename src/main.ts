@@ -31,18 +31,28 @@ ctx.fillStyle = "#fff";
 const carImage = new Image();
 carImage.src = "/car.svg";
 
-const car = new Car(cWidth / 2, cHeight / 2);
+const car = new Car(cWidth / 2, cHeight / 2, true);
+const car2 = new Car(200, 300);
+const car3 = new Car(400, 300);
+const cars: Car[] = [];
+
+cars.push(car);
+cars.push(car2);
+cars.push(car3);
+
 const ui = new UI(ctx, car);
 
 const tick = () => {
 	ctx.clearRect(0, 0, cWidth, cHeight);
 	drawGrid();
-	car.draw(ctx, carImage);
-	car.update();
+
+	cars.forEach((car) => {
+		car.draw(ctx, carImage);
+		car.update();
+	});
 
 	ui.draw();
 	ui.update();
-
 	requestAnimationFrame(tick);
 };
 carImage.onload = () => {
@@ -53,3 +63,21 @@ carImage.onload = () => {
 // ctx.font = "bold 45px system-ui";
 // const radhakrsna = "Radhey Shyam";
 // ctx.fillText(radhakrsna, cWidth / 2 - radhakrsna.length * 20, cHeight / 2);
+
+window.addEventListener("keydown", (ev) => {
+	if (!isNaN(parseInt(ev.key))) {
+		console.log("a");
+		for (let i = 0; i < cars.length; i++) {
+			if (ev.key === `${i + 1}`) {
+				ui.setCar(cars[i]);
+				cars.forEach((car) => {
+					if (car === cars[i]) {
+						car.enable();
+					} else {
+						car.disable();
+					}
+				});
+			}
+		}
+	}
+});
